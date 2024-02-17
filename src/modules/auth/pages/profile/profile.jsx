@@ -127,19 +127,7 @@ const Profile = () => {
               variant="standard"
             />
           </div>
-          <div
-            className="profileDataContainer"
-            style={{ flexDirection: sidebarRTL ? "row-reverse" : "row" }}
-          >
-            <p>{t("address")} </p>
-            <TextField
-              multiline
-              variant="standard"
-              disabled={true}
-              value={profileInfo?.address}
-              sx={{ margin: "0px 10px" }}
-            />
-          </div>
+          
           <div
             className="profileDataContainer"
             style={{ flexDirection: sidebarRTL ? "row-reverse" : "row" }}
@@ -155,18 +143,7 @@ const Profile = () => {
               margin="normal"
             />
           </div>
-          <div
-            className="profileDataContainer"
-            style={{ flexDirection: sidebarRTL ? "row-reverse" : "row" }}
-          >
-            <p>{t("Phone")} </p>
-            <TextField
-              variant="standard"
-              value={profileInfo?.phone}
-              sx={{ margin: "0px 10px" }}
-              disabled={true}
-            />
-          </div>
+          
           <div
             className="profileDataContainer"
             style={{ flexDirection: sidebarRTL ? "row-reverse" : "row" }}

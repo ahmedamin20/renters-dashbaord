@@ -83,7 +83,7 @@ const Login = () => {
         <img
           src="/assets/logo.png"
           alt="KSB logo"
-          style={{ width: 300, height: 150, margin: "1rem auto" }}
+          style={{ width: 150, height: 150, margin: "1rem auto" }}
         />
         <Typography component="h1" sx={{ fontWeight: "bold" }} variant="h5">
           Sign in
@@ -160,13 +160,13 @@ const Login = () => {
               mb: 2,
               fontWeight: "bold",
               fontSize: "22px",
-              backgroundColor: "#ff7205",
+              backgroundColor: "#0090ff",
               color: "white",
               borderRadius: ".5rem",
               transition: "all .5s ease-in-out",
               ":hover": {
                 backgroundColor: "black",
-                color: "#ff7205",
+                color: "#0090ff",
               },
             }}
             disabled={disable}

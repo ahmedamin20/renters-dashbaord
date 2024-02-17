@@ -56,7 +56,7 @@ export const tokens = (mode) => ({
           300: "#a4a9fc",
           400: "#868dfb",
           500: "#6870fa",
-          600: "#ff7205",
+          600: "#0090ff",
           700: "#4A5163",
           800: "#2a2d64",
           900: "#151632",
@@ -113,8 +113,8 @@ export const tokens = (mode) => ({
           300: "#3e4396",
           400: "#535ac8",
           500: "#6870fa",
-          600: "#ff7205",
-          700: "#ff7205", //table header and footer main color495164
+          600: "#0090ff",
+          700: "#0090ff", //table header and footer main color495164
           800: "#c3c6fd",
           900: "#e1e2fe",
         },

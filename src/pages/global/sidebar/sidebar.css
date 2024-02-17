@@ -17,7 +17,7 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: rgba(153, 100, 1, 0.594);
+    background: #0090ff;
     cursor: pointer !important;
     border-radius: .8rem;
     transition: all.5s;
@@ -27,7 +27,7 @@
 ::-webkit-scrollbar-thumb:hover {
     transition: all 1s;
     cursor: pointer !important;
-    background: rgb(174, 113, 1);
+    background: #0090ff;
 }
 
 /* Firefox */

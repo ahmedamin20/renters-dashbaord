@@ -47,11 +47,11 @@ const MyProSidebar = () => {
         },
 
         "& .sc-pyfCe:hover": {
-          color: `orange !important`,
+          color: `#0090ff !important`,
           backgroundColor: "transparent !important",
         },
         "& .menu-item.active": {
-          color: `#ff7205 !important`,
+          color: `#0090ff !important`,
           backgroundColor: "transparent !important",
         },
       }}
@@ -78,9 +78,15 @@ const MyProSidebar = () => {
           >
             {!collapsed && (
               <Box
-                display="flex"
-                justifyContent="space-evenly"
-                alignItems="center"
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  margin: "1rem auto",
+                  width: "200px",
+                  height: "200px",
+                  marginTop:"5rem"
+                }}
               >
                 <img
                   src={
@@ -90,8 +96,9 @@ const MyProSidebar = () => {
                   }
                   alt="logo"
                   width="150px"
-                  height="75px"
+                  height="150px"
                   style={{
+                    marginTop: "2rem",
                     // margin: "0px 10px",
                     "@media (maxWidth:600px)": { margin: "0px 12px" },
                   }}
@@ -100,7 +107,7 @@ const MyProSidebar = () => {
                 <IconButton
                   onClick={() => setCollapsed(!collapsed)}
                   // onClick={
-
+                  sx={{marginLeft:"50%"}}
                   // }
                 >
                   <CloseOutlinedIcon />

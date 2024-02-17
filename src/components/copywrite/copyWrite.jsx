@@ -11,12 +11,12 @@ const Copyright = (props) => {
     >
       {"Copyright © "}
       <a
-        style={{ color: "#ff7205", fontWeight: "bold" }}
+        style={{ color: "#0090ff", fontWeight: "bold" }}
         target="_blank"
         rel="noreferrer"
-        href="https://doctor-code.net/"
+        href="https://portfolio-psi-pied-15.vercel.app/"
       >
-        Dr.Code
+        Ahmed Amin
       </a>{" "}
       {new Date().getFullYear()}
       {"."}

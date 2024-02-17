@@ -8,8 +8,8 @@ export default function BarsChartComponent({ array }) {
   return array ? (
     <BarChart
       dataset={array}
-      xAxis={[{ scaleType: "band", dataKey: t("key"), fill: "#ff7205" }]}
-      series={[{ dataKey: "data", fill: "#ff7205" }]}
+      xAxis={[{ scaleType: "band", dataKey: t("key"), fill: "#0090ff" }]}
+      series={[{ dataKey: "data", fill: "#0090ff" }]}
       height={500}
       sx={{ width: "100%" }}
     />
