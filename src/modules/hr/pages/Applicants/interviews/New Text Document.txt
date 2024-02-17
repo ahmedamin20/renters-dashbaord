@@ -1,0 +1,162 @@
+import React, { useState } from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import { Box, TextField, useTheme } from "@mui/material";
+import { tokens } from "../../theme";
+import { useTranslation } from "react-i18next";
+import { useSidebarContext } from "../global/sidebar/sidebarContext";
+import { useDispatch } from "react-redux";
+import {
+  editCars,
+  getCarsData,
+} from "../../redux/cars";
+import { useFormik } from "formik";
+import * as yup from "yup";
+
+const EditBrand = (props) => {
+  const { sidebarRTL } = useSidebarContext();
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [open, setOpen] = useState(false);
+  const [selectedImageUrl] = useState(props.img);
+
+  const validationSchema = yup.object().shape({
+    name: yup.string().required("Name is required"),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      name: props.name,
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      // Handle form submission here
+    },
+  });
+
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+
+  const handleClickOpen = async () => {
+    setOpen(true);
+  };
+
+  const handleApiCall = async () => {
+    if (loading) {
+      return; // If loading is true, do nothing (prevent multiple clicks)
+    }
+
+    const info = {
+      values: formik.values,
+      id: props.id,
+    };
+
+    await dispatch(editCars(info)).then((res) =>
+      res.payload.code === 200
+        ? dispatch(getCarsData(props.pageSize)).then(setOpen(false))
+        : setOpen(true)
+    );
+  };
+
+  return (
+    <Box>
+      <Button
+        variant="contained"
+        onClick={handleClickOpen}
+        sx={props.sx}
+        endIcon={props.icon}
+      >
+        {t("Edit")}
+      </Button>
+      <Dialog
+        fullWidth={true}
+        sx={{ width: { xs: "100%", md: "50%" }, margin: "auto", padding: "0" }}
+        open={open}
+        onClose={() => setOpen(false)}
+      >
+        <DialogTitle
+          sx={{ fontWeight: "bold", fontSize: "30px" }}
+          align={sidebarRTL ? "right" : "left"}
+        >
+          {t("Edit")}
+        </DialogTitle>
+        <DialogContent>
+          <Box
+            fullWidth
+            dir={sidebarRTL ? "rtl" : "ltr"}
+            display="flex"
+            flexDirection="column"
+            sx={{
+              margin: "1rem 0",
+            }}
+          >
+            <label
+              style={{
+                fontSize: "18px",
+                marginBottom: ".5rem",
+                fontWeight: "bold",
+              }}
+            >
+              {t("New Department Name")}
+            </label>
+            <TextField
+              type="text"
+              name="name"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
+            />
+          </Box>
+          <p
+            dir={sidebarRTL ? "rtl" : "ltr"}
+            style={{
+              color: "red",
+              margin: ".5rem",
+              fontSize: "16px",
+              fontWeight: "bold",
+              direction: sidebarRTL ? "rtl" : "ltr",
+            }}
+          >
+            {t(`${message}`)}
+          </p>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            sx={{
+              backgroundColor: colors.blueAccent[700],
+              color: colors.grey[100],
+              fontSize: "14px",
+              fontWeight: "bold",
+              padding: "10px 20px",
+            }}
+            onClick={() => setOpen(false)}
+          >
+            {t("Cancel")}
+          </Button>
+          <Button
+            sx={{
+              backgroundColor: colors.blueAccent[700],
+              color: colors.grey[100],
+              fontSize: "14px",
+              fontWeight: "bold",
+              padding: "10px 15px",
+            }}
+            onClick={handleApiCall}
+            endIcon={props.icon}
+          >
+            {t("Edit")}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Box>
+  );
+};
+
+export default EditBrand;

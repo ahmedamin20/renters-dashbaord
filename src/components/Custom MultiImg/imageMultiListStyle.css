@@ -1,0 +1,54 @@
+.upload__image-wrapper{
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: contain;
+    /* background-color: aliceblue; */
+    /* background-image: url("../../../public/assets/mainImg.png"); */
+}
+.addAndRemoveButtonContainer{
+display: flex;
+justify-content: space-between;
+margin: 1rem auto;
+width: 30%;
+}
+.upload_button{
+    background-color: rgb(0, 174, 0) !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+}
+.remove_all_button{
+    background-color: #910606 !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+
+}
+.all_images_container{
+    width: 100%;
+    min-height: 10rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.image-item{
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+width: 32%;
+height: 50%;
+background-color: rgba(0, 0, 0, 0.238);
+border-radius: .2rem;
+/* background-color: black; */
+}
+.image-item img{
+width: 100%;
+height: 100%;
+}
+.image-item__btn-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: .5rem;
+}

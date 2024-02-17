@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html,
+body,
+#root,
+.app,
+.content {
+  font-family: "Source Sance Pro", sans-serif;
+  overflow-x: hidden;
+}
+.MuiDataGrid-cell--textLeft {
+  cursor: pointer;
+}
+
+/* ::selection{ 
+  pointer-events: none;
+} */
+
+/* Add styles for RTL layout */
+.rtl {
+  direction: rtl;
+}
+
+/* Add styles for LTR layout (optional) */
+.ltr {
+  direction: ltr;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #e0e0e0;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888888;
+}
+.customFont,label{
+  font-family: 'PT Serif', serif !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.MuiTablePagination-displayedRows {
+  margin: 0 0.5rem !important;
+}
+
+/* For .MuiInputBase-root-MuiTablePagination-select */
+.MuiInputBase-root-MuiTablePagination-select {
+  margin: 0 0.5rem !important;
+}
+
+/* For .MuiTablePagination-selectLabel */
+.MuiTablePagination-selectLabel {
+  margin: 0 0.5rem !important;
+  font-size: 16px !important;
+}
+.MuiTablePagination-actions {
+  direction: ltr !important;
+}
+
+.MuiTablePagination-displayedRows {
+  direction: ltr !important;
+}
+.MuiDataGrid-cellContent {
+  font-size: 18px;
+}
+.MuiDataGrid-cell--textLeft {
+  font-size: 18px;
+}
+/*  */
+.css-1c8nyuh-MuiButtonBase-root-MuiFab-root,
+.css-1khpv5p-MuiButtonBase-root-MuiFab-root {
+  background-color:orange !important;
+  color: white !important;
+}

@@ -1,0 +1,31 @@
+@media (max-width:1350px) {
+    .btnsContainer{
+        min-width: 100% !important;
+    }
+    .EditBtnStudent{
+        
+    }
+    .cancelBtnStudent{
+    
+    }
+}
+@media (max-width:565px) {
+    .btnsContainer{
+        min-width: 100% !important;
+        flex-direction: column;
+    }
+    .EditBtnStudent{
+        width: 50% !important;
+        margin: 1rem auto;
+    }
+    .cancelBtnStudent{
+        width: 100% !important;
+        margin: 1rem auto;
+    }
+    .cancelBtnStudentLink{
+        width: 50% !important;
+        margin: 1rem auto !important;
+
+
+    }
+}

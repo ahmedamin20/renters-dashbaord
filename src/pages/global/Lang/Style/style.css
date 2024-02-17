@@ -1,0 +1,24 @@
+.lang {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  line-height: 2;
+  transition: all 0.3s linear;
+  cursor: pointer;
+}
+li {
+  list-style: none;
+}
+.lang:hover {
+  padding-left: 1rem;
+}
+
+.lang img {
+  width: 1.5rem;
+  border-radius: 0.25rem;
+  margin-right: 0.5rem;
+}
+
+.lang span {
+  font-weight: bold;
+}

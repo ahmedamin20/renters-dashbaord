@@ -1,0 +1,14 @@
+.wrapper{
+    border: 1px solid grey;
+    background-color: white;
+  }
+  
+  .editor{
+    background-color: white ;
+    position: relative;
+    color: black;
+
+  }
+  .toolbar{
+    /* background-color: green; */
+  }

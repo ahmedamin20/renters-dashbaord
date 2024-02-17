@@ -1,0 +1,57 @@
+div.mainProfileData {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+div.profileDataContainer {
+  width: 45%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  align-content: center;
+  margin: 0.2rem 1rem;
+  padding: 1rem;
+  text-align: start;
+}
+
+div.profileDataContainer p {
+  font-weight: bold;
+  font-size: 18px;
+  padding: 0.5rem !important;
+  margin: 0;
+  text-align: center;
+  flex-grow: initial;
+}
+.MuiButton-contained {
+  text-transform: capitalize !important;
+  font-size: 16px !important;
+}
+div.profileDataContainer span {
+  padding: 0.5rem;
+  width: 50%;
+  font-size: 16px;
+  border-radius: 0.2rem;
+  text-align: center;
+}
+
+/* Responsive adjustments for smaller screens */
+@media screen and (max-width: 768px) {
+  div.mainProfileData {
+    flex-direction: column;
+  }
+
+  div.profileDataContainer {
+    width: 90%;
+    margin: 0.5rem auto;
+  }
+
+  div.profileDataContainer span {
+    width: 100%;
+  }
+  div.profileDataContainer p {
+    width: 60%;
+  }
+}

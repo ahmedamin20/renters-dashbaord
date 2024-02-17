@@ -1,0 +1,16 @@
+.custom-table {
+    table-layout: fixed;
+  }
+  
+  .custom-table th,
+  .custom-table td {
+    width: 80px;
+    padding: 8px;
+    text-align: center;
+  }
+
+  .custom-table th.first,
+.custom-table td.first {
+  text-align: left;
+}
+  
