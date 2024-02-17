@@ -170,8 +170,8 @@ const Login = () => {
               },
             }}
             disabled={disable}
-          >
-            Sign In
+            >
+            {disable?"wait...":"Sign In"}
           </Button>
         </form>
         <Copyright variant={"h6"} />
