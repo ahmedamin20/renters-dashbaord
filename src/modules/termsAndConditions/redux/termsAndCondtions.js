@@ -3,7 +3,7 @@ import defaultAPI from '../../../axiosInstance.js'
 export const getTermsAndCondtions = createAsyncThunk(
   'termsAndCondtions/get',
   async () => {
-    const apiUrl = `/admin/terms_and_conditions`
+    const apiUrl = `/terms_and_conditions`
     try {
       const res = await defaultAPI.get(apiUrl)
       return res.data
@@ -16,7 +16,7 @@ export const getTermsAndCondtions = createAsyncThunk(
 export const updateTermsAndCondtions = createAsyncThunk(
   'termsAndCondtions/update',
   async (values) => {
-    const apiUrl = `/admin/terms_and_conditions`
+    const apiUrl = `/terms_and_conditions`
     try {
       const res = await defaultAPI.put(apiUrl, values)
       return res.data

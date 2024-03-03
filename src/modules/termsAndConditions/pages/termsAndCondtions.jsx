@@ -23,8 +23,7 @@ const TermsAndCondtions = () => {
 
   const formik = useFormik({
     initialValues: {
-      employee_terms: termsAndCondtions.employee_terms,
-      client_terms: termsAndCondtions.client_terms,
+      content: termsAndCondtions.content,
     },
     enableReinitialize: true,
     // validationSchema: TasksSchema,
@@ -48,25 +47,16 @@ const TermsAndCondtions = () => {
   };
 
   const textFields = [
+    
     {
-      name: "employee_terms",
-      value: formik.values.employee_terms,
+      name: "content",
       isMulti: true,
+      value: formik.values.content,
       handleChange: formik.handleChange,
       onBlur: formik.handleBlur,
-      placeholder: t("employee_terms"),
-      error: !!formik.touched.employee_terms && !!formik.errors.employee_terms,
-      helperText: formik.touched.employee_terms && formik.errors.employee_terms,
-    },
-    {
-      name: "client_terms",
-      isMulti: true,
-      value: formik.values.client_terms,
-      handleChange: formik.handleChange,
-      onBlur: formik.handleBlur,
-      placeholder: t("client_terms"),
-      error: !!formik.touched.client_terms && !!formik.errors.client_terms,
-      helperText: formik.touched.client_terms && formik.errors.client_terms,
+      placeholder: t("content"),
+      error: !!formik.touched.content && !!formik.errors.content,
+      helperText: formik.touched.content && formik.errors.content,
     },
   ];
   return (
