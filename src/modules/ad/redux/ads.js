@@ -68,12 +68,8 @@ const adsSlice = createSlice({
         state.loading = false;
         state.error = false;
         state.adsData = action.payload;
-        state.adsLinks = action.payload.links;
-        state.adsLinks.first = action.payload.links.first;
-        state.adsLinks.last = action.payload.links.last;
-        state.adsLinks.prev = action.payload.links.prev;
-        state.adsLinks.next = action.payload.links.next;
-        state.currentPage = action.payload.meta.current_page;
+        console.log(action?.payload)
+        
       })
       .addCase(searchAds.fulfilled, (state, action) => {
         state.loading = false;

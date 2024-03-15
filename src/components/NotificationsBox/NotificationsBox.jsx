@@ -32,10 +32,10 @@ import { StatuseCode } from "../../statuseCodes";
 import Pusher from "pusher-js";
 import { useRef } from "react";
 
-let handleSound = () => {
-  const audio = new Audio(Sound);
-  audio.play();
-};
+// let handleSound = () => {
+//   const audio = new Audio(Sound);
+//   audio.play();
+// };
 
 let NotificationsBox = () => {
   let dispatch = useDispatch();
@@ -196,7 +196,6 @@ let NotificationsBox = () => {
             aria-expanded={open ? "true" : undefined}
             className=" !p-0   relative"
           >
-            <Notifications sx={{ width: 30, height: 30 }} />
           </IconButton>
         </Badge>
       </Box>

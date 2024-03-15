@@ -22,11 +22,7 @@ import hasPermission from "../../../utils/haspermission.js";
 import useMainHooks from "../../../hooks/useMainHooks.jsx";
 
 const AdsTable = () => {
-  const firstPage = useSelector((state) => state.ads.adsLinks.first);
-  const nextPage = useSelector((state) => state.ads.adsLinks.next);
-  const lastPage = useSelector((state) => state.ads.adsLinks.last);
-  const prevPage = useSelector((state) => state.ads.adsLinks.prev);
-  const currentPage = useSelector((state) => state.ads.currentPage);
+
   const { t, sidebarRTL, dispatch, colors } = useMainHooks();
   const [pageSize, setPageSize] = useState(10);
   const data = useSelector((state) => state.ads.adsData.data) || [];
@@ -106,7 +102,7 @@ const AdsTable = () => {
     onPageSizeChange: (newPageSize) => setPageSize(newPageSize),
     columns: columns,
   };
-
+console.log( useSelector((state) => state.ads))
   return !loading ? (
     <Box m="20px">
       <Box
@@ -126,16 +122,16 @@ const AdsTable = () => {
       <CustomTableBox
         tableData={tableData}
         action={searchAds}
-        CustomPagenation={
-          <CustomPagenation
-            action={fetchAdsDataByPage}
-            currentPage={currentPage}
-            prevPage={prevPage}
-            nextPage={nextPage}
-            lastPage={lastPage}
-            firstPage={firstPage}
-          />
-        }
+        // CustomPagenation={
+        //   <CustomPagenation
+        //     action={fetchAdsDataByPage}
+        //     currentPage={currentPage}
+        //     prevPage={prevPage}
+        //     nextPage={nextPage}
+        //     lastPage={lastPage}
+        //     firstPage={firstPage}
+        //   />
+        // }
       />
     </Box>
   ) : (

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getStatistics } from "../redux/statistics";
+// import { getStatistics } from "../redux/statistics";
 import { useRef } from "react";
 import { Box } from "@mui/material";
 import CustomCard from "../../../components/CustomCard";
@@ -17,7 +17,7 @@ const Dashboard = () => {
   );
   useEffect(() => {
     if (checkUserType) {
-      dispatch(getStatistics({ checkUserType: checkUserType }));
+      // dispatch(getStatistics({ checkUserType: checkUserType }));
     }
   }, [dataRef, dispatch, checkUserType]);
 
