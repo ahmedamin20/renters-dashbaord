@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const defaultAPI = axios.create({
-  baseURL: "https://renter-api.ksbgarage.com",
+  baseURL: "https://renters-api.ksbgarage.com",
 });
 
 // Add a request interceptor
