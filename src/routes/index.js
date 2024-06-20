@@ -109,6 +109,9 @@ import Inventories from "./../modules/Safe/Pages/inventories";
 import OneInventory from "./../modules/Safe/Pages/oneInventory";
 import EmployeePaymentTable from "./../modules/hr/pages/EmployeePayment/Pages/employeePayment";
 import EmployeePaymentForm from "../modules/hr/pages/EmployeePayment/Pages/employeePaymentForm.jsx";
+import CategoriesTable from "../modules/categories/pages/cateories.jsx";
+import AddCatgory from "../modules/categories/pages/add.jsx";
+import EditCategory from "../modules/categories/pages/edit.jsx";
 export const routes = createBrowserRouter([
   {
     path: "/",
@@ -144,6 +147,18 @@ export const routes = createBrowserRouter([
        {
         path: "Testimonials",
         element: <Testimonials />,
+      },
+       {
+        path: "categories",
+        element: <CategoriesTable />,
+      },
+       {
+        path: "categories/add",
+        element: <AddCatgory />,
+      },
+       {
+        path: "categories/edit/:id",
+        element: <EditCategory />,
       },
       
        {

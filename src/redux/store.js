@@ -79,12 +79,14 @@ const persistConfig = {
   storage,
 };
 import employeePayment from "../modules/hr/pages/EmployeePayment/redux/employeePayment.js";
+import categories from "../modules/categories/redux/categories.js";
 
 const persistedReducer = persistReducer(persistConfig, auth);
 
 export const store = configureStore({
   reducer: {
     safeSlice,
+    categories,
     employeePayment,
     user: persistedReducer,
     profile: profile,
