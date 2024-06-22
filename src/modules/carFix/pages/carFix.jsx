@@ -74,8 +74,8 @@ const CarFix = () => {
       ),
     },
     {
-      field: "from_date",
-      headerName: t("from_date"),
+      field: "from date",
+      headerName: t("from date"),
       width: 180,
       cellClassName: "name-column--cell",
       renderCell: (params) => (
@@ -83,8 +83,8 @@ const CarFix = () => {
       ),
     },
     {
-      field: "to_date",
-      headerName: t("to_date"),
+      field: "to date",
+      headerName: t("to date"),
       width: 180,
       cellClassName: "name-column--cell",
       renderCell: (params) => (
@@ -109,8 +109,8 @@ const CarFix = () => {
       ),
     },
     {
-      field: "from_user",
-      headerName: t("from_user"),
+      field: "from user",
+      headerName: t("from user"),
       width: 150,
       renderCell: (params) => (
         <Box sx={{ margin: "auto" }}>
@@ -119,8 +119,8 @@ const CarFix = () => {
       ),
     },
     {
-      field: "to_user",
-      headerName: t("to_user"),
+      field: "to user",
+      headerName: t("to user"),
       width: 150,
       renderCell: (params) => <CustomToolTip text={params.row.to_user.name} />,
     },
@@ -197,7 +197,7 @@ const CarFix = () => {
           >
             
             {hasPermission("show-car_fix") && (
-              <Link to={`${selectedGarage}/show/${params.row.id}`}>
+              <Link to={`${params.row.id}/show/`}>
                 <GreenButton text="show" />
               </Link>
             )}

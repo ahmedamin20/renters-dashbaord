@@ -20,7 +20,7 @@ export const getCarFix = createAsyncThunk(
 );
 export const getOneCarFix = createAsyncThunk("carFix/getOne", async (info) => {
   console.log(info);
-  let apiUrl = `/api/admin/garages/${info.garage_id}/car_fixes/${info.fix_id}`;
+  let apiUrl = `/api/admin/orders/${info.id}`;
   try {
     const res = await defaultAPI.get(apiUrl);
     return res.data;

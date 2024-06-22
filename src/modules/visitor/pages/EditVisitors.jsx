@@ -108,6 +108,7 @@ const EditVisitors = () => {
           >
             <CustomLable title={item.placeholder} />
             <CustomFormikTextFeild
+              disabled={true}
               placeholder={t(item.placeholder)}
               onBlur={item.onBlur}
               onChange={item.handleChange}

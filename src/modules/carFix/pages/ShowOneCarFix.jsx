@@ -17,80 +17,26 @@ import Header from "../../../components/Header.jsx";
 const ShowCarFix = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { garage_id, fix_id } = useParams();
+  const { id } = useParams();
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { sidebarRTL } = useSidebarContext();
   const loading = useSelector((state) => state.CarFix.loading);
   const data = useSelector((state) => state.CarFix.oneFixData.data) || [];
-  const productData = data?.products;
-  console.log(data);
+  console.log(data)
   useEffect(() => {
-    if (garage_id && fix_id) {
-      dispatch(getOneCarFix({ garage_id: garage_id, fix_id: fix_id }));
+    if (id) {
+      dispatch(getOneCarFix({ id }));
     }
-  }, [dispatch, garage_id, fix_id]);
-  const totalSellingPrice =
-    productData?.reduce((total, item) => total + item.selling_price, 0) || "";
+  }, [dispatch, id]);
+  
 
-  const handleLastVisit = () => {
-    dispatch(
-      getOneCarFix({
-        garage_id: data?.visit.garage_id,
-        fix_id: data?.latest_visit_id,
-      })
-    );
-  };
+  
 
-  const columns = [
-    {
-      field: "id",
-      headerName: t("id"),
-      width: 150,
-    },
-    {
-      field: "name",
-      headerName: t("name"),
-      width: 300,
-      cellClassName: "name-column--cell",
-      renderCell: (params) => <CustomToolTip text={params.row.name} />,
-    },
-    {
-      field: "serial_number",
-      headerName: t("serial_number"),
-      cellClassName: "name-column--cell",
-      width: 200,
-      renderCell: (params) => <CustomToolTip text={params.row.serial_number} />,
-    },
-    {
-      field: "quantity",
-      headerName: t("quantity"),
-      width: 100,
-      renderCell: (params) => <CustomToolTip text={params.row.quantity} />,
-    },
-    {
-      field: "storehouse_place",
-      headerName: t("storehouse_place"),
-      width: 200,
-      renderCell: (params) => (
-        <CustomToolTip text={params.row.storehouse_place} />
-      ),
-    },
-    {
-      field: "selling_price",
-      headerName: t("selling_price"),
-      width: 150,
-      renderCell: (params) => <CustomToolTip text={params.row.selling_price} />,
-    },
-  ];
-  const tableData = {
-    rows: productData || [],
-    columns: columns,
-    loading: loading,
-  };
+  
   return !loading ? (
     <Box dir={sidebarRTL ? "rtl" : "ltr"} m="20px">
-      <Header title={`${t("fix")}` + " : " + fix_id + " " + `${t("show")}`} />
+      {/*<Header title={`${t("fix")}` + " : " + id + " " + `${t("show")}`} />*/}
       <br />
       <Box
         dir={sidebarRTL ? "rtl" : "ltr"}
@@ -101,32 +47,40 @@ const ShowCarFix = () => {
       >
         <Box className="dataCard">
           <h3>{t("owner_data")}</h3>
-          <SmallBox title={"name"} data={data?.visitor_car?.visitor?.name} />
+          <SmallBox title={"name"} data={data?.to_user?.name} />
           <SmallBox
-            title={"car_license"}
-            data={data?.visitor_car?.car_license}
+            title={"Email"}
+            data={data?.to_user?.email}
           />
-          <SmallBox title={"visit_date"} data={data?.visit?.created_at} />
+          <SmallBox title={"Address"} data={data?.to_user?.address} />
+          <div style={{display:"flex", flexDirection:"column", gap:"20px", fontWeight:"bold"}}>
+          <span>ID: {data?.to_user?.front_national_id?.ID_F}</span>
+<span>Address: {data?.to_user?.front_national_id?.Address}</span>
+<span>Gender: {data?.to_user?.back_national_id?.Gender}</span>
+<span>BD: {data?.to_user?.back_national_id?.ID_B}</span>
+<span>Status: {data?.to_user?.back_national_id?.Status}</span>
+        </div>
         </Box>
         <Box className="dataCard">
-          <h3>{t("car_data")}</h3>
-          <SmallBox title={"brand"} data={data?.visitor_car?.brand?.name} />
-          <SmallBox title={"model"} data={data?.visitor_car?.model_year} />
+          <h3>{t("Renter Data")}</h3>
+          <SmallBox title={"name"} data={data?.from_user?.name} />
           <SmallBox
-            background={data?.visitor_car?.color?.code}
-            title={"color"}
-            data={data?.visitor_car?.color?.code}
+            title={"Email"}
+            data={data?.from_user?.email}
           />
+          <SmallBox title={"Address"} data={data?.from_user?.address} />
+          <div style={{display:"flex", flexDirection:"column", gap:"20px", fontWeight:"bold"}}>
+          <span>ID: {data?.from_user?.front_national_id?.ID_F}</span>
+<span>Address: {data?.from_user?.front_national_id?.Address}</span>
+<span>Gender: {data?.from_user?.back_national_id?.Gender}</span>
+<span>BD: {data?.from_user?.back_national_id?.ID_B}</span>
+<span>Status: {data?.from_user?.back_national_id?.Status}</span>
+        </div>
         </Box>
       </Box>
       <Box className="dataCard" sx={{ width: "100%" }}>
         <h3>{t("Details")}</h3>
-        {data?.malfunction_description !== null ? (
-          <span style={{ display: "flex", margin: "1rem auto" }}>
-            <CustomLable title="description" />
-            <ScrollDialog message={data?.malfunction_description} />
-          </span>
-        ) : null}
+        
         <Box
           sx={{
             width: "100%",
@@ -135,10 +89,8 @@ const ShowCarFix = () => {
             flexWrap: "wrap",
           }}
         >
-          {data.length &&
-            data?.images.map((item) => (
+          
               <Box
-                key={item.id}
                 sx={{
                   width: "50%",
                   display: "flex",
@@ -152,40 +104,35 @@ const ShowCarFix = () => {
                     margin: ".5rem auto",
                     width: "400px",
                     height: "400px",
+                    borderRadius: "8px",
                   }}
-                  src={item.url}
+                  src={data?.product.main_image}
                   alt="img"
                 />
               </Box>
-            ))}
+            
         </Box>
-        {data?.malfunction_description !== null ? (
-          <span style={{ display: "flex", margin: "1rem auto" }}>
-            <CustomLable title="description" />
-            <ScrollDialog message={data?.malfunction_description} />
-          </span>
-        ) : null}
-        {data?.video ? <video width="100%" controls src={data?.video} /> : null}
-        <CustomTableBox tableData={tableData} />
+        <ScrollDialog message={data?.product?.description}/>
+        
         <CustomLable
           margin="1rem"
-          title="total_fix_amount"
-          body={`${totalSellingPrice} FAFC`}
+          title="Name"
+          body={`${data?.product?.name}`}
         />
         <CustomLable
           margin="1rem"
-          title="checking_amount"
-          body={`${data?.checking_amount} FAFC`}
+          title="price"
+          body={`${data?.price} EGP`}
         />
         <CustomLable
           margin="1rem"
-          title="profit_amount"
-          body={`${data?.profit_amount} FAFC`}
+          title="Health"
+          body={`${data?.product?.health} %`}
         />
         <CustomLable
           margin="1rem"
-          title="paid_amount"
-          body={`${data?.paid_amount} FAFC`}
+          title="category"
+          body={`${data?.product?.category?.name}`}
         />
       </Box>
       {data?.latest_visit_id ? (

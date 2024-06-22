@@ -19,6 +19,7 @@ import TestimonialsInfoPage from "../modules/testimonial/pages/TestimonialsInfoP
 import EditVisitors from "../modules/visitor/pages/EditVisitors.jsx";
 import Visitors from "../modules/visitor/pages/Visitors.jsx";
 import hasPermission from "../utils/haspermission";
+import ShowCarFix from "../modules/carFix/pages/ShowOneCarFix.jsx";
 export const routes = createBrowserRouter([
   {
     path: "/",
@@ -40,6 +41,10 @@ export const routes = createBrowserRouter([
       {
         path: "orders",
         element: <CarFix />,
+      },
+      {
+        path: "orders/:id/show",
+        element: <ShowCarFix />,
       },
       {
         path: "users/:id",
