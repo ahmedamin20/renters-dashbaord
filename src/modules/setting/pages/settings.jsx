@@ -110,35 +110,7 @@ const Settings = () => {
       helperText: formik.touched.instagram && formik.errors.instagram,
     },
 
-    {
-      name: "gmail",
-      value: formik.values.gmail,
-      placeholder: t("gmail"),
-      handleChange: formik.handleChange,
-      onBlur: formik.handleBlur,
-      error: !!formik.touched.gmail && !!formik.errors.gmail,
-      helperText: formik.touched.gmail && formik.errors.gmail,
-    },
-    {
-      name: "taxes",
-      value: formik.values.taxes,
-      placeholder: t("taxes"),
-      handleChange: formik.handleChange,
-      onBlur: formik.handleBlur,
-      error: !!formik.touched.taxes && !!formik.errors.taxes,
-      helperText: formik.touched.taxes && formik.errors.taxes,
-    },
-    {
-      name: "checking_amount",
-      value: formik.values.checking_amount,
-      placeholder: t("checking_amount"),
-      handleChange: formik.handleChange,
-      onBlur: formik.handleBlur,
-      error:
-        !!formik.touched.checking_amount && !!formik.errors.checking_amount,
-      helperText:
-        formik.touched.checking_amount && formik.errors.checking_amount,
-    },
+    
   ];
   console.log(sidebarRTL);
   return (
@@ -168,11 +140,7 @@ const Settings = () => {
             />
           </Box>
         ))}
-        <CustomTagInput
-          defaultData={settingData?.phones}
-          onChange={(item) => formik.setFieldValue("phone", item)}
-          title="phone"
-        />
+        
         {hasPermission("update-settings") && (
           <Button
             fullWidth
