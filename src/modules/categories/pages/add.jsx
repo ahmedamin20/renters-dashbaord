@@ -27,7 +27,7 @@ const AddCatgory = () => {
 
   const handleSubmit = (values) => {
     const formData = new FormData();
-    formData.append("name", values.title);
+    formData.append("name", values.name);
     formData.append("image", values.image);
     dispatch(addCategory(formData)).then((res) =>
     {
