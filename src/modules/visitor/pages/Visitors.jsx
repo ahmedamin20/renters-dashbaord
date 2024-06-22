@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Button, useTheme } from "@mui/material";
+import { Box, Button, Switch, useTheme } from "@mui/material";
 import CustomTableBox from "../../../components/customTableBox/CustomTableBox.jsx";
 import { useSidebarContext } from "../../../pages/global/sidebar/sidebarContext.js";
 import Header from "../../../components/Header.jsx";
@@ -16,6 +16,7 @@ import CustomLoader from "../../../components/CustomLoader/CustomLoader.jsx";
 import { fetchVisitorsDataByPage, getVisitors, searchVistors } from "../redux/Visitors.js";
 import hasPermission from "../../../utils/haspermission.js";
 import EditButton from "../../../components/editButton.jsx";
+import defaultAPI from "../../../axiosInstance.js";
 // import hasPermission from "./../../utils/haspermission";
 
 const Visitors = () => {
@@ -26,7 +27,7 @@ const Visitors = () => {
   const lastPage = useSelector((state) => state.visitors.VisitorsLinks.last);
   const prevPage = useSelector((state) => state.visitors.VisitorsLinks.prev);
   const currentPage = useSelector((state) => state.visitors.currentPage);
-
+console.log(data)
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const dispatch = useDispatch();
@@ -58,20 +59,20 @@ const Visitors = () => {
       cellClassName: "name-column--cell",
       renderCell: (params) => <CustomToolTip text={params.row.email} />,
     },
+    // {
+    //   field: "phone",
+    //   headerName: t("phone"),
+    //   cellClassName: "name-column--cell",
+    //   width:200,
+    //   renderCell: (params) => <CustomToolTip text={params.row.phone} />,
+    // },
     {
-      field: "phone",
-      headerName: t("phone"),
-      cellClassName: "name-column--cell",
-      width:200,
-      renderCell: (params) => <CustomToolTip text={params.row.phone} />,
-    },
-    {
-      field: "latest_visit",
-      headerName: t("latest_visit"),
+      field: "address",
+      headerName: t("address"),
       width:200,
       renderCell: (params) =>
-        params.row.latest_visit !== null ? (
-          <CustomToolTip text={params.row.latest_visit.created_at} />
+        params.row.address !== null ? (
+          <CustomToolTip text={params.row.address} />
         ) : null,
     },
 
@@ -89,22 +90,25 @@ const Visitors = () => {
           }}
         >
           {hasPermission("update-visitor") && (
-            <Link to={`edit-visitor/${params.row.id}`}>
-              <EditButton text={"edit"} />
-             
-            </Link>
+            <>
+            <Switch
+            checked={params.row.status}
+            onChange={() => {
+              const newStatus = params.row.status == 0 ? 1 : 0;
+              defaultAPI.patch(`/admin/clients/${params.row.id}`, {
+                status: newStatus
+              })
+              .then(() => dispatch(getVisitors({ pageSize: pageSize })))
+              .catch(error => console.error("Failed to update status:", error));
+            }}
+            text={"edit"}
+          />
+             <Link to={`${params.row.id}`}>
+             Show
+             </Link>
+             </>
           )}
-          {hasPermission("delete-visitor") && (
-            <CustomDelete
-              sx={{
-                background: `${colors.redAccent[600]}`,
-              }}
-              action={deleteVisitorCar}
-              rerenderAction={getVisitorsCars}
-              id={params.id}
-              pageSize={pageSize}
-            />
-          )}
+          
         </Box>
       ),
     },

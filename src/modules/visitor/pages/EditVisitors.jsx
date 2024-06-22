@@ -18,8 +18,8 @@ import { OneVisitor, editVisitor, getVisitors } from "../redux/Visitors.js";
 import { VisitorsTypes } from "./visitorsTypesArray.js";
 
 const EditVisitors = () => {
-  const { visitor_id } = useParams();
-  // console.log(visitor_id)
+  const { id } = useParams();
+  // console.log(id)
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,66 +31,27 @@ const EditVisitors = () => {
     useSelector((state) => state.visitors.OneVisitorData.data) || [];
 
   useEffect(() => {
-    dispatch(OneVisitor(visitor_id));
-  }, [dispatch, visitor_id]);
+    dispatch(OneVisitor(id));
+  }, [dispatch, id]);
 
   const formik = useFormik({
     initialValues: {
       name: OneVisitorData?.name,
       email: OneVisitorData?.email,
       phone: OneVisitorData?.phone,
-      type: OneVisitorData?.type,
-      password: "",
-      password_confirmation: "",
+      address: OneVisitorData?.address,
+      front_national: OneVisitorData?.front_national,
+      back_national: OneVisitorData?.back_national,
+      front_national_id: OneVisitorData?.front_national_id,
+      back_national_id: OneVisitorData?.back_national_id,
+
     },
     enableReinitialize: true,
-    validationSchema: yup.lazy(values =>
-      visitorsSchema.shape(
-        values.type === "client"
-          ? {
-            password: yup
-            .string()
-            // .required("Password is required")
-            .min(8, "Password must be at least 8 characters")
-            .matches(
-              /^(?=.*[A-Z][a-z])/,
-              "Password must contain at least one uppercase letter and least one lowercase letter"
-            ),
-            password_confirmation: yup
-            .string()
-            .oneOf([yup.ref("password"), null], "Passwords must match"),
-        
-            }
-          : {}
-      )
-    ),
-    onSubmit: (values) => {
-      setLoading(true);
-      handleFormSubmit(values);
-    },
+    
+    
   });
-  console.log(OneVisitorData);
-  const handleFormSubmit = async (values) => {
-    // console.log(values);
-    const pageSize = 10;
-    const data = {
-      id: visitor_id,
-      values: {
-        ...values,
-        phone: parseInt(values.phone),
-      },
-    };
-
-    await dispatch(editVisitor(data)).then((res) => {
-      if (res.payload.code === StatuseCode.OK) {
-        dispatch(getVisitors({ pageSize: pageSize }));
-        formik.resetForm();
-        navigate(-1);
-      }
-    });
-
-    setLoading(false);
-  };
+  console.log(OneVisitorData,"OneVisitorData");
+  
 
   const textFields = [
     {
@@ -120,14 +81,20 @@ const EditVisitors = () => {
       error: !!formik.touched.phone && !!formik.errors.phone,
       helperText: formik.touched.phone && formik.errors.phone,
     },
+    {
+      name: "address",
+      value: formik.values.address,
+      placeholder: t("Input Address"),
+      handleChange: formik.handleChange,
+      onBlur: formik.handleBlur,
+      error: !!formik.touched.address && !!formik.errors.address,
+      helperText: formik.touched.address && formik.errors.address,
+    },
+    
   ];
-  const handleVisitorTypeChange = async (item) => {
-    await formik.setFieldValue("type", item?.id);
-    await setType(item?.id);
-    // console.log(type)
-  };
+ 
   return (
-    <Box m="20px">
+    <Box height={"100%"} overflow={"hidden"} m="20px">
       <form onSubmit={formik.handleSubmit} dir={sidebarRTL ? "ltr" : "rtl"}>
         {textFields.map((item, index) => (
           <Box
@@ -151,43 +118,23 @@ const EditVisitors = () => {
             />
           </Box>
         ))}
-        <CustomSelect
-          lable="type"
-          placeholder="Select an option"
-          defaultData={OneVisitorData?.type}
-          onChange={handleVisitorTypeChange}
-          options={VisitorsTypes()}
-        />
-        {type == "client" && (
-          <>
-            <CustomPassword
-              req={type === "client" ? true : false}
-              name="password"
-              error={!!formik.touched.password && !!formik.errors.password}
-              helperText={formik.touched.password && formik.errors.password}
-              value={formik.values.password}
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-            />
-            <CustomPassword
-              req={type === "client" ? true : false}
-              name="password_confirmation"
-              error={
-                !!formik.touched.password_confirmation &&
-                !!formik.errors.password_confirmation
-              }
-              helperText={
-                formik.touched.password_confirmation &&
-                formik.errors.password_confirmation
-              }
-              value={formik.values.password_confirmation}
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-            />
-          </>
-        )}
-        <SubmitButton fullWidth={true} loading={loading} text="Edit" />
+        <div style={{display:"flex", flexDirection:"column" ,width:"100%"}}>
+        <span style={{fontSize:"20px", fontWeight:"bold", margin:"1rem"}}>Front National ID </span>
+        <img style={{width:"50%",margin:"1rem auto",borderRadius:"8px", objectFit:"cover", height:"300px"}} src={formik.values.front_national} alt="front"/>
+        </div>
+        <div style={{display:"flex", flexDirection:"column" ,width:"100%", height:"150px"}}>
+        <span style={{fontSize:"20px", fontWeight:"bold", margin:"1rem"}}>Back National ID </span>
+        <img style={{width:"50%",margin:"1rem auto",borderRadius:"8px", objectFit:"cover", height:"300px"}} src={formik.values.back_national} alt="back"/>
+        </div>
+        
       </form>
+      <div style={{display:"flex", flexDirection:"column", gap:"20px", fontWeight:"bold"}}>
+          <span>ID: {OneVisitorData?.front_national_id?.ID_F}</span>
+<span>Address: {OneVisitorData?.front_national_id?.Address}</span>
+<span>Gender: {OneVisitorData?.back_national_id?.Gender}</span>
+<span>BD: {OneVisitorData?.back_national_id?.ID_B}</span>
+<span>Status: {OneVisitorData?.back_national_id?.Status}</span>
+        </div>
     </Box>
   );
 };

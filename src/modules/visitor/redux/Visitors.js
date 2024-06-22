@@ -3,7 +3,7 @@ import defaultAPI from '../../../axiosInstance.js'
 
 export const getVisitors = createAsyncThunk('visitors/get', async (info) => {
   // const {brand_id,color_id,visitor_id,pageSize} = info
-  let apiUrl = `/api/visitors?&per_page=${info.pageSize}`
+  let apiUrl = `/admin/clients?&per_page=${info.pageSize}`
   try {
     const res = await defaultAPI.get(apiUrl)
     return res.data
@@ -12,12 +12,12 @@ export const getVisitors = createAsyncThunk('visitors/get', async (info) => {
   }
 })
 export const searchVistors = createAsyncThunk("Vistors/search", async (info) => {
-  let apiUrl = `/api/visitors?per_page=${info.pageSize}&handle=${info.handle}`;
+  let apiUrl = `/admin/clients?per_page=${info.pageSize}&handle=${info.handle}`;
   const res = await defaultAPI.get(apiUrl);
   return res.data;
 });
 export const addVisitors = createAsyncThunk('visitors/add', async (values) => {
-  let apiUrl = `/api/visitors`
+  let apiUrl = `/admin/clients`
   try {
     const res = await defaultAPI.post(apiUrl, values)
     return res.data
@@ -26,7 +26,7 @@ export const addVisitors = createAsyncThunk('visitors/add', async (values) => {
   }
 })
 export const OneVisitor = createAsyncThunk('visitors/getOne', async (id) => {
-  let apiUrl = `/api/visitors/${id}`
+  let apiUrl = `/admin/clients/${id}`
   try {
     const res = await defaultAPI.get(apiUrl)
     // console.log(res.data.data)
@@ -51,7 +51,7 @@ export const fetchVisitorsDataByPage = (info) => async (dispatch) => {
 export const deleteVisitor = createAsyncThunk(
   'visitorsCars/delete',
   async (id) => {
-    const apiUrl = `/api/visitors/${id}`
+    const apiUrl = `/admin/clients/${id}`
     try {
       const res = await defaultAPI.delete(apiUrl)
       return res.data
@@ -61,7 +61,7 @@ export const deleteVisitor = createAsyncThunk(
   },
 )
 export const editVisitor = createAsyncThunk('visitors/edit', async (info) => {
-  const apiUrl = `/api/visitors/${info.id}`
+  const apiUrl = `/admin/clients/${info.id}`
   try {
     const res = await defaultAPI.put(apiUrl, info.values)
     return res.data
