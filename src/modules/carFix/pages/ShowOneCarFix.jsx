@@ -106,7 +106,7 @@ const ShowCarFix = () => {
                     height: "400px",
                     borderRadius: "8px",
                   }}
-                  src={data?.product.main_image}
+                  src={data?.product?.main_image}
                   alt="img"
                 />
               </Box>
