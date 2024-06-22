@@ -59,17 +59,7 @@ const Topbar = () => {
               <DarkModeOutlinedIcon fontSize="large" />
             )}
           </IconButton>
-          <IconButton
-            sx={{
-              width: "50px",
-              height: "50px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Languages />
-          </IconButton>
+          
           <Box>{!profileLoading ? <UserDropDown /> : <CustomLoader />}</Box>
         </Box>
         <Box>
