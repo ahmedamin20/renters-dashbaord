@@ -52,8 +52,15 @@ const RoutesArray = () => {
           type: Object.values(USER_TYPES_ENUM),
         },
         {
-          title: "ads",
+          title: "Banner",
           to: "ads",
+          icon: <BorderColorIcon />,
+          permission: "all-ad",
+          type: Object.values(USER_TYPES_ENUM),
+        },
+        {
+          title: "Users",
+          to: "users",
           icon: <BorderColorIcon />,
           permission: "all-ad",
           type: Object.values(USER_TYPES_ENUM),
