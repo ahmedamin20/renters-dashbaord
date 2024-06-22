@@ -1,37 +1,46 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Box, Button, useTheme } from "@mui/material";
-import CustomTableBox from "../../../components/customTableBox/CustomTableBox.jsx";
-import { useSidebarContext } from "../../../pages/global/sidebar/sidebarContext.js";
-import Header from "../../../components/Header.jsx";
+import { Avatar, Box, Button, useTheme } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import CustomPagenation from "../../../components/CustomPagenation/CustomPagenation.jsx";
-import { tokens } from "../../../theme.js";
-import CustomToolTip from "../../../components/CustomToolTip/customToolTip.jsx";
-import { getGaragesMenu } from "../../../redux/select_menus.js";
-import CustomSelectMenu from "../../../components/CustomSelect/CustomSelect.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import CustomLoader from "../../../components/CustomLoader/CustomLoader.jsx";
+import CustomPagenation from "../../../components/CustomPagenation/CustomPagenation.jsx";
+import CustomToolTip from "../../../components/CustomToolTip/customToolTip.jsx";
+import Header from "../../../components/Header.jsx";
+import CustomTableBox from "../../../components/customTableBox/CustomTableBox.jsx";
+import EditButton from "../../../components/editButton.jsx";
+import GreenButton from "../../../components/greenButton.jsx";
+import { car_fix_status_enum } from "../../../enums/carFixStatusEnum.js";
+import { useSidebarContext } from "../../../pages/global/sidebar/sidebarContext.js";
+import { StatuseCode } from "../../../statuseCodes.js";
+import { tokens } from "../../../theme.js";
+import hasPermission from "../../../utils/haspermission.js";
 import {
   fetchCarFixDataByPage,
   finishCarFix,
   getCarFix,
   searchCarFix,
 } from "../redux/carFix.js";
-import { Link } from "react-router-dom";
-import DefaultButton from "../../../components/defaultBtn.jsx";
-import GreenButton from "../../../components/greenButton.jsx";
-import { car_fix_status_enum } from "../../../enums/carFixStatusEnum.js";
 import FollowupRepair from "./followupRepair.jsx";
 import Pay from "./pay.jsx";
-import EditButton from "../../../components/editButton.jsx";
-import { StatuseCode } from "../../../statuseCodes.js";
-import hasPermission from "../../../utils/haspermission.js";
+import CustomSelectMenu from "../../../components/CustomSelect/CustomSelect.jsx";
 
 const CarFix = () => {
   const data = useSelector((state) => state.CarFix.carFixData.data) || [];
-  const garagesMenu =
-    useSelector((state) => state.selectMenu.garagesMenu.data) || [];
+  const statusObject = {
+    PENDING: 0,
+    RENTING: 1,
+    REJECTED: 2,
+    FINISHED: 3,
+    CANCELED: 4
+  };
+  const garagesMenu = [
+    { name: "PENDING", id: 0 },
+    { name: "RENTING", id: 1 },
+    { name: "REJECTED", id: 2 },
+    { name: "FINISHED", id: 3 },
+    { name: "CANCELED", id: 4 }
+  ];
   const loading = useSelector((state) => state.CarFix.loading);
   const firstPage = useSelector((state) => state.CarFix.carFixLinks.first);
   const nextPage = useSelector((state) => state.CarFix.carFixLinks.next);
@@ -44,83 +53,84 @@ const CarFix = () => {
   const { t } = useTranslation();
   const { sidebarRTL } = useSidebarContext();
   const [pageSize, SetPageSize] = useState(10);
-  const [selectedGarage, SetSelectedGarage] = useState(null);
+  const [selectedGarage, SetSelectedGarage] = useState("1");
   const handleGarageChange = (value) => {
     SetSelectedGarage(value?.id);
   };
-  useEffect(() => {
-    dispatch(getGaragesMenu());
-  }, [dispatch]);
+ 
 
   useEffect(() => {
     dispatch(getCarFix({ id: selectedGarage, pageSize: pageSize }));
-  }, [dispatch, selectedGarage, pageSize]);
+  }, [ pageSize, selectedGarage]);
 
   const columns = [
     {
-      field: "visitor",
-      headerName: t("visitor"),
-      width: 180,
+      field: "id",
+      headerName: t("id"),
+      width: 50,
       cellClassName: "name-column--cell",
       renderCell: (params) => (
-        <CustomToolTip text={params.row.visitor_car.visitor.name} />
+        <CustomToolTip text={params.row.id} />
       ),
     },
     {
-      field: "car_license",
-      headerName: t("car_license"),
+      field: "from_date",
+      headerName: t("from_date"),
       width: 180,
       cellClassName: "name-column--cell",
       renderCell: (params) => (
-        <CustomToolTip text={params.row.visitor_car.car_license} />
+        <CustomToolTip text={params.row.from_date} />
       ),
     },
     {
-      field: "vin_number",
-      headerName: t("vin_number"),
+      field: "to_date",
+      headerName: t("to_date"),
+      width: 180,
+      cellClassName: "name-column--cell",
+      renderCell: (params) => (
+        <CustomToolTip text={params.row.to_date} />
+      ),
+    },
+    
+    {
+      field: "price",
+      headerName: t("price"),
       width: 200,
       renderCell: (params) => (
-        <CustomToolTip text={params.row.visitor_car.vin_number} />
+        <CustomToolTip text={`${params.row.price} EGP`} />
       ),
     },
     {
-      field: "visit_date",
-      headerName: t("visit_date"),
+      field: "product",
+      headerName: t("product"),
       width: 150,
       renderCell: (params) => (
-        <CustomToolTip text={params.row.visit.created_at} />
+        <CustomToolTip text={params.row?.product?.name} />
       ),
     },
     {
-      field: "total_fix_amount",
-      headerName: t("total_fix_amount"),
+      field: "from_user",
+      headerName: t("from_user"),
       width: 150,
       renderCell: (params) => (
         <Box sx={{ margin: "auto" }}>
-          <CustomToolTip text={params.row.total_fix_amount} />
+          <CustomToolTip text={params.row.from_user.name} />
         </Box>
       ),
     },
     {
-      field: "paid_amount",
-      headerName: t("paid_amount"),
+      field: "to_user",
+      headerName: t("to_user"),
       width: 150,
-      renderCell: (params) => <CustomToolTip text={params.row.paid_amount} />,
+      renderCell: (params) => <CustomToolTip text={params.row.to_user.name} />,
     },
     {
-      field: "profit_amount",
-      headerName: t("profit_amount"),
+      field: "Product Image",
+      headerName: t("Product Image"),
       width: 150,
-      renderCell: (params) => <CustomToolTip text={params.row.profit_amount} />,
+      renderCell: (params) => <Avatar src={params.row?.product?.main_image} />,
     },
-    {
-      field: "checking_amount",
-      headerName: t("checking_amount"),
-      width: 150,
-      renderCell: (params) => (
-        <CustomToolTip text={params.row.checking_amount} />
-      ),
-    },
+    
     {
       field: "created_at",
       headerName: t("created_at"),
@@ -133,46 +143,40 @@ const CarFix = () => {
       width: 180,
       renderCell: (params) => {
         switch (params.row.status) {
-          case car_fix_status_enum.APPROVED:
+          case statusObject.FINISHED:
             return (
               <CustomToolTip
-                text="Approved"
+                text="FINISHED"
                 background={colors.greenAccent[600]}
               />
             );
-          case car_fix_status_enum.DECLINED:
+          case statusObject.CANCELED:
             return (
               <CustomToolTip
-                text="DecLined"
+                text="CANCELED"
                 background={colors.redAccent[600]}
               />
             );
-          case car_fix_status_enum.FINISHED:
+          case statusObject.PENDING:
             return (
               <CustomToolTip
-                text="Finished"
-                background={colors.greenAccent[600]}
-              />
-            );
-          case car_fix_status_enum.PENDING:
-            return (
-              <CustomToolTip
-                color="white"
-                text="Pending"
+                text="PENDING"
                 background={colors.primary[600]}
               />
             );
-          case car_fix_status_enum.PROCESSING:
-            return (
-              <CustomToolTip text="Processing" background={colors.grey[600]} />
-            );
-          case car_fix_status_enum.TECHNICAL:
+          case statusObject.REJECTED:
             return (
               <CustomToolTip
-                text="Technical"
-                background={colors.blueAccent[500]}
+                color="white"
+                text="REJECTED"
+                background={colors.grey[600]}
               />
             );
+          case statusObject.RENTING:
+            return (
+              <CustomToolTip text="RENTING" background={colors.grey[600]} />
+            );
+          
           default:
             return null;
         }
@@ -183,7 +187,6 @@ const CarFix = () => {
       headerName: t("Actions"),
       width: 650,
       renderCell: (params) => {
-        console.log("params.row", params);
         return (
           <Box
             sx={{
@@ -192,66 +195,17 @@ const CarFix = () => {
               alignItems: "center",
             }}
           >
-            {hasPermission("update-car_fix") &&
-              (params.row.status == "1" || params.row.status == "2") && (
-                <Link to={`${selectedGarage}/update/${params.row.id}`}>
-                  <EditButton backGround={colors.primary[500]} text="edit" />
-                </Link>
-              )}
+            
             {hasPermission("show-car_fix") && (
               <Link to={`${selectedGarage}/show/${params.row.id}`}>
                 <GreenButton text="show" />
               </Link>
             )}
-            {hasPermission("follow_up_repair-car_fix") && (
-              <FollowupRepair
-                disabled={params.row.status !== car_fix_status_enum.APPROVED}
-                id={params.row.id}
-                garage_id={selectedGarage}
-              />
-            )}
-            {hasPermission("pay-car_fix") && (
-              <Pay
-                disabled={
-                  params.row.status !== car_fix_status_enum.DECLINED ||
-                  params.row.total_fix_amount > params.row.paid_amount
-                }
-                id={params.row.id}
-                garage_id={selectedGarage}
-              />
-            )}
-            {hasPermission("finish-car_fix") && (
-              <EditButton
-                disabled={params.row.status === car_fix_status_enum.PROCESSING}
-                text="finish"
-                backGround={colors.redAccent[500]}
-                onClick={() => {
-                  dispatch(
-                    finishCarFix({
-                      id: params.row.id,
-                      garage_id: selectedGarage,
-                    })
-                  ).then((res) =>
-                    res.payload.code === StatuseCode.OK
-                      ? dispatch(
-                          getCarFix({ id: selectedGarage, pageSize: pageSize })
-                        )
-                      : null
-                  );
-                }}
-              />
-            )}
+            
+            
+            
 
-            {hasPermission("export-car_fix") && (
-              <a
-                style={{ color: colors.grey[900] }}
-                href={`https://api.ksbgarage.com/api/exports/car_fixes/${params.row.id}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Button variant="contained">{t("Export")}</Button>
-              </a>
-            )}
+            
           </Box>
         );
       },
@@ -273,22 +227,17 @@ const CarFix = () => {
         justifyContent="space-between"
         alignItems="center"
       >
-        <Header title={t("car_fix")} />
+        <Header title={t("Orders")} />
+        
         <CustomSelectMenu
           defaultData={selectedGarage}
           onChange={handleGarageChange}
-          lable="select_garage"
+          lable="Order State"
           options={garagesMenu}
         />
-        {hasPermission("store-car_fix") && (
-          <Link to="add">
-            <DefaultButton text="add" />
-          </Link>
-        )}
       </Box>
       <CustomTableBox
         tableData={tableData}
-        id={selectedGarage}
         action={searchCarFix}
         CustomPagenation={
           <CustomPagenation

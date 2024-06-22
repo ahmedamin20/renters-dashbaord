@@ -5,6 +5,7 @@ import AddAds from "../modules/ad/pages/addAds.jsx";
 import AdsTable from "../modules/ad/pages/ads.jsx";
 import EditAds from "../modules/ad/pages/editAds.jsx";
 import Profile from "../modules/auth/pages/profile/profile";
+import CarFix from "../modules/carFix/pages/carFix.jsx";
 import AddCatgory from "../modules/categories/pages/add.jsx";
 import CategoriesTable from "../modules/categories/pages/cateories.jsx";
 import EditCategory from "../modules/categories/pages/edit.jsx";
@@ -15,9 +16,9 @@ import Settings from "../modules/setting/pages/settings.jsx";
 import TermsAndCondtions from "../modules/termsAndConditions/pages/termsAndCondtions.jsx";
 import { Testimonials } from "../modules/testimonial/pages/Testimonials.jsx";
 import TestimonialsInfoPage from "../modules/testimonial/pages/TestimonialsInfoPage.jsx";
+import EditVisitors from "../modules/visitor/pages/EditVisitors.jsx";
 import Visitors from "../modules/visitor/pages/Visitors.jsx";
 import hasPermission from "../utils/haspermission";
-import EditVisitors from "../modules/visitor/pages/EditVisitors.jsx";
 export const routes = createBrowserRouter([
   {
     path: "/",
@@ -35,6 +36,10 @@ export const routes = createBrowserRouter([
       {
         path: "users",
         element: <Visitors />,
+      },
+      {
+        path: "orders",
+        element: <CarFix />,
       },
       {
         path: "users/:id",
