@@ -47,8 +47,8 @@ const AboutUs = () => {
 
   const handleFormSubmit = async (values) => {
     const formData = new FormData();
-    formData.append("name", values.Name);
-    formData.append("description", values.Description);
+    formData.append("name", values.name);
+    formData.append("description", values.description);
     formData.append("youtube_video_url", values.youtube_video_url);
     formData.append("image", logo); // Add the logo to the form data
 
@@ -121,11 +121,11 @@ const AboutUs = () => {
                     type="text"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    value={values.Name}
+                    value={values.name}
                     defaultValue={aboutUS?.name}
-                    name="Name"
-                    error={!!touched.Name && !!errors.Name}
-                    helperText={touched.Name && errors.Name}
+                    name="name"
+                    error={!!touched.name && !!errors.name}
+                    helperText={touched.name && errors.name}
                     sx={{ gridColumn: "span 4" }}
                     inputProps={{
                       style: { fontSize: "18px", fontWeight: "bold" }, // Adjust the font size here
@@ -146,12 +146,12 @@ const AboutUs = () => {
                     type="text"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    value={values.Description}
-                    name="Description"
+                    value={values.description}
+                    name="description"
                     defaultValue={aboutUS?.description}
                     multiline
-                    error={!!touched.Description && !!errors.Description}
-                    helperText={touched.Description && errors.Description}
+                    error={!!touched.description && !!errors.description}
+                    helperText={touched.description && errors.description}
                     sx={{ gridColumn: "span 4" }}
                     inputProps={{
                       style: { fontSize: "18px", fontWeight: "bold" }, // Adjust the font size here
