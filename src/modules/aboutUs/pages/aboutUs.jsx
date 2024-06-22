@@ -24,6 +24,7 @@ import { useRef } from "react";
 
 const AboutUs = () => {
   const { sidebarRTL } = useSidebarContext();
+  const formRef = useRef(null)
   const aboutUS =
     useSelector((state) => state.about_us?.aboutUsData?.data) || [];
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -41,17 +42,14 @@ const AboutUs = () => {
   const colors = tokens(theme.palette.mode);
 
   const checkoutSchema = yup.object().shape({
-    Name: validationSchema.name,
-    Description: validationSchema.description,
+    name: validationSchema.name,
+    description: validationSchema.description,
   });
 
   const handleFormSubmit = async (values) => {
     console.log(values)
-    const formData = new FormData();
-    formData.append("name", values.name);
-    formData.append("description", values.description);
-    formData.append("youtube_video_url", values.youtube_video_url);
-    formData.append("image", logo); // Add the logo to the form data
+    const formData = new FormData(formRef.current);
+    // Add the logo to the form data
 
     await dispatch(editAboutUs(formData)).then((res) =>
       res.payload.code === StatuseCode.OK ? dispatch(getAbout_us()) : null
@@ -99,7 +97,7 @@ const AboutUs = () => {
             handleChange,
             handleSubmit,
           }) => (
-            <form onSubmit={handleSubmit}>
+            <form ref={formRef} onSubmit={handleSubmit}>
               <Box
                 display="grid"
                 gap="30px"
@@ -185,7 +183,7 @@ const AboutUs = () => {
                     }
                     sx={{ gridColumn: "span 4" }}
                     inputProps={{
-                      style: { fontSize: "18px", fontWeight: "bold" }, // Adjust the font size here
+                      style: { fontSize: "18px", fontWeight: "bold" },
                     }}
                   />
                 </Box>
