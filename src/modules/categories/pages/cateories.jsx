@@ -33,7 +33,7 @@ const CategoriesTable = () => {
   const { t } = useTranslation();
   const { sidebarRTL } = useSidebarContext();
   const [pageSize, SetPageSize] = useState(10);
-
+  console.log(data)
   useEffect(() => {
     dispatch(getcategories({ pageSize: pageSize }));
   }, [dispatch, pageSize]);
@@ -49,7 +49,7 @@ const CategoriesTable = () => {
       headerName: t("Name"),
       width: 200,
       cellClassName: "name-column--cell",
-      renderCell: (params) => <CustomToolTip text={params.row.title} />,
+      renderCell: (params) => <CustomToolTip text={params.row.name} />,
     },
    
     {

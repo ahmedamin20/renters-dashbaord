@@ -9,7 +9,6 @@ import Languages from "./Lang/Lang";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useSidebarContext } from "./sidebar/sidebarContext";
 import { tokens } from "../../theme";
-import NotificationsBox from "../../components/NotificationsBox/NotificationsBox";
 import { useSelector } from "react-redux";
 import CustomLoader from "./../../components/CustomLoader/CustomLoader";
 
@@ -60,7 +59,6 @@ const Topbar = () => {
               <DarkModeOutlinedIcon fontSize="large" />
             )}
           </IconButton>
-          <NotificationsBox fontSize="large" />
           <IconButton
             sx={{
               width: "50px",

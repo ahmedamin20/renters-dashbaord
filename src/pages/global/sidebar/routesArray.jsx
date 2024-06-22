@@ -59,13 +59,7 @@ const RoutesArray = () => {
           type: Object.values(USER_TYPES_ENUM),
         },
         
-        {
-          title: "ourTeam",
-          to: "ourteam",
-          icon: <Groups2Icon />,
-          permission: "all-blog",
-          type: Object.values(USER_TYPES_ENUM),
-        },
+        
       ],
     },
   ];

@@ -168,12 +168,6 @@ export const routes = createBrowserRouter([
       { path: "ads", element: <AdsTable /> },
       { path: "ads/add-ads", element: <AddAds /> },
       { path: "ads/edit-ads/:ad_id", element: <EditAds /> },
-      { path: "Blogs", element: <Blogs /> },
-      { path: "Blogs/add", element: <AddBlog /> },
-      { path: "Blogs/edit/:id", element: <EditBlogs /> },
-      { path: "ourteam", element: <OurTeam /> },
-      { path: "ourteam/add", element: <AddTeamMember /> },
-      { path: "ourteam/edit/:id", element: <EditTeamMember /> },
     ],
   },
 ]);
