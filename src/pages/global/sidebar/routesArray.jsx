@@ -65,6 +65,13 @@ const RoutesArray = () => {
           permission: "all-ad",
           type: Object.values(USER_TYPES_ENUM),
         },
+        {
+          title: "Orders",
+          to: "orders",
+          icon: <BorderColorIcon />,
+          permission: "all-ad",
+          type: Object.values(USER_TYPES_ENUM),
+        },
         
         
       ],
